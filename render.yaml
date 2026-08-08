@@ -1,8 +1,9 @@
 services:
-  # 1. Express Node.js Backend Web Service
+  # 1. Express Node.js Backend Web Service (Free Tier)
   - type: web
     name: hoarding-leads-backend
     env: node
+    plan: free
     rootDir: backend
     buildCommand: npm install
     startCommand: npm start
@@ -12,18 +13,20 @@ services:
       - key: NODE_ENV
         value: production
 
-  # 2. FastAPI Python AI/ML Service
+  # 2. FastAPI Python AI/ML Service (Free Tier)
   - type: web
     name: hoarding-leads-python
     env: python
+    plan: free
     rootDir: python_services
     buildCommand: pip install -r requirements.txt
     startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
 
-  # 3. React Static Frontend
+  # 3. React Static Frontend (Free Tier)
   - type: web
     name: hoarding-leads-frontend
     env: static
+    plan: free
     rootDir: frontend
     buildCommand: npm install && npm run build
     staticPublishPath: dist
