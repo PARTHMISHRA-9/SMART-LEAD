@@ -1,0 +1,9 @@
+{
+  "recommendations": [
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "dsglover.full-react-snippets",
+    "formulahendry.auto-rename-tag",
+    "christian-kohler.npm-intellisense"
+  ]
+}
