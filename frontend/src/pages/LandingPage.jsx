@@ -1,6 +1,6 @@
 // frontend/src/pages/LandingPage.jsx
 /**
- * PREMIUM LANDING PAGE — Autonomous OOH Revenue Intelligence Platform
+ * PREMIUM LANDING PAGE — Autonomous Billboard Revenue Intelligence Platform
  * -------------------------------------------------------------------
  * ARCHITECTURE (All explainable):
  *
@@ -75,7 +75,7 @@ function LandingNav() {
         </div>
         <div>
           <div style={{ fontFamily: 'var(--font-heading)', fontWeight: 800, fontSize: '0.95rem', letterSpacing: '-0.02em' }}>SmartLeads</div>
-          <div style={{ fontSize: '0.62rem', color: 'var(--text-dim)', letterSpacing: '0.08em', textTransform: 'uppercase' }}>OOH Revenue Intelligence</div>
+          <div style={{ fontSize: '0.62rem', color: 'var(--text-dim)', letterSpacing: '0.08em', textTransform: 'uppercase' }}>Billboard Revenue Intelligence</div>
         </div>
       </a>
 
@@ -160,7 +160,7 @@ function HeroSection({ metrics, vacancies }) {
           <span className="gradient-text">The agent sees it first.</span>
         </h1>
         <p className="hero-sub">
-          SmartLeads is an autonomous OOH revenue intelligence platform.
+          SmartLeads is an autonomous Billboard revenue intelligence platform.
           It detects hoarding vacancies, scores every potential customer
           across 5 dimensions, and generates personalised pitches before
           a single human looks at a spreadsheet.
@@ -780,7 +780,7 @@ function LandingFooter() {
     <footer className="land-footer">
       <div>
         <div style={{ fontFamily: 'var(--font-heading)', fontWeight: 700, marginBottom: 4 }}>SmartLeads Agent</div>
-        <p>Autonomous OOH Revenue Intelligence Platform</p>
+        <p>Autonomous Billboard Revenue Intelligence Platform</p>
       </div>
       <p style={{ color: 'var(--text-dim)', fontSize: '0.75rem' }}>
         Deterministic scoring &middot; Explainable AI &middot; Enterprise Platform

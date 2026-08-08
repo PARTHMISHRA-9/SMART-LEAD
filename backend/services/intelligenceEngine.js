@@ -1,6 +1,6 @@
 // backend/services/intelligenceEngine.js
 /**
- * OOH Revenue Intelligence Engine
+ * Billboard Revenue Intelligence Engine
  * -------------------------------
  * EXPLAINABLE ARCHITECTURE & BUSINESS DECISION ENGINE:
  * 

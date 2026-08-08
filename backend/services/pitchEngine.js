@@ -35,7 +35,7 @@ function generatePersonalizedPitch(vacancy, leadScore, channel = 'EMAIL', tone =
   const durationMonths = 3;
   const estimatedContractValue = quotedRate * durationMonths;
 
-  let subject = `Exclusive OOH Advertising Opportunity: ${locationName} (${siteId})`;
+  let subject = `Exclusive Outdoor Advertising Opportunity: ${locationName} (${siteId})`;
   let content = '';
 
   if (channel === 'EMAIL') {
@@ -61,7 +61,7 @@ We can reserve this high-impact site for your upcoming campaign starting ${vacan
 Would you be open to a 10-minute call this Thursday to discuss campaign timings?
 
 Best regards,
-OOH Media Partnerships Team`;
+Outdoor Media Partnerships Team`;
   } else if (channel === 'WHATSAPP') {
     content = `Hi ${customerName} team! 📍 *Exclusive Billboard Opportunity in ${vacancy.zone}*
 

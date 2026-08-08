@@ -32,7 +32,7 @@ function logAgentActivity(actionType, message, metadata = {}) {
 function getRecentActivities(limit = 15) {
   if (activityLogs.length === 0) {
     // Populate initial sample activity stream
-    logAgentActivity('SYSTEM_INIT', 'Autonomous OOH Revenue Recovery Agent initialized.');
+    logAgentActivity('SYSTEM_INIT', 'Autonomous Billboard Revenue Recovery Agent initialized.');
     logAgentActivity('VACANCY_SCAN', 'Scanned 300 hoardings for 90-day vacancy boundaries.');
     logAgentActivity('FIT_CALCULATION', 'Evaluated multi-factor lead fit scores for 80 enterprise customers.');
     logAgentActivity('REVENUE_RISK', 'Calculated $11.4M total 90-day revenue exposure across inventory.');

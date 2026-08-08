@@ -14,7 +14,7 @@ export default function RecoveryMission({ siteId, strategy, onClose, onPitch }) 
   }, [mission]);
   return <div className="modal-backdrop" role="dialog" aria-modal="true" aria-label="Recovery mission">
     <div className="glass-panel mission-modal"><button className="icon-button" onClick={onClose}><X /></button>
-      <span className="eyebrow">Autonomous OOH Revenue Recovery Agent</span><h2>Recovery Mission</h2>
+      <span className="eyebrow">Autonomous Billboard Revenue Recovery Agent</span><h2>Recovery Mission</h2>
       {error ? <p className="error-text">{error}</p> : !mission ? <div className="state-panel"><LoaderCircle className="spin" />Preparing deterministic mission…</div> : <>
         <div className="mission-summary"><div><small>Mission</small><b>{mission.mission_id}</b></div><div><small>Site</small><b>{mission.vacancy.site_id}</b></div><div><small>Top customer</small><b>{mission.top_lead?.company_name || 'Data unavailable'}</b></div><div><small>Expected recovery</small><b>{money(mission.revenue_risk.expected_recovery)}</b></div><div><small>Confidence</small><b>{mission.confidence}%</b></div></div>
         <div className="mission-steps">{mission.steps.map((step, index) => <div className={index <= active ? 'mission-step done' : 'mission-step'} key={step.id}>{index < active ? <CheckCircle2 /> : index === active ? <LoaderCircle className="spin" /> : <span className="step-dot" />}<div><b>{step.label}</b>{index <= active && <small>{step.evidence}</small>}</div></div>)}</div>

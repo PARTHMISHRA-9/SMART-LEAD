@@ -1,6 +1,6 @@
 // frontend/src/App.jsx
 /**
- * Autonomous OOH Revenue Recovery Platform - Executive Cockpit Application
+ * Autonomous Billboard Revenue Recovery Platform - Executive Cockpit Application
  * ------------------------------------------------------------------------
  * EXPLAINABLE ARCHITECTURE & AGENTIC AI COMMAND CENTER:
  * Orchestrates all 8 operating views, interactive modals, AI Agent Activity feed,
@@ -265,7 +265,7 @@ export default function App() {
 
       {/* Footer */}
       <footer style={{ marginTop: '40px', padding: '20px 0', borderTop: '1px solid var(--border-color)', textAlign: 'center', color: 'var(--text-dim)', fontSize: '0.8rem' }}>
-        Autonomous OOH Revenue Recovery Platform • DigiPlus IT Agentic AI Hackathon Solution • Thakur College of Engineering & Technology
+        Autonomous Billboard Revenue Recovery Platform • DigiPlus IT Agentic AI Hackathon Solution • Thakur College of Engineering & Technology
       </footer>
 
     </div>

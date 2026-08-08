@@ -3,7 +3,7 @@
  * Sales Pipeline Kanban Service
  * -----------------------------
  * EXPLAINABLE ARCHITECTURE & PHASE 15 REQUIREMENT:
- * Manages sales pipeline stages for OOH revenue recovery:
+ * Manages sales pipeline stages for Billboard revenue recovery:
  * Stages: NEW | CONTACTED | QUALIFIED | MEETING | PROPOSAL | NEGOTIATION | WON | LOST
  * 
  * Persists lead pipeline stage transitions in memory and disk state.

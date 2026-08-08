@@ -18,7 +18,7 @@ export default function MinimalHeader({ onOpenSearch, onOpenAIAgent }) {
         )}
         <div>
           <div className="brand-title">SMART LEADS</div>
-          <div className="brand-subtitle">Autonomous OOH Revenue Intelligence</div>
+          <div className="brand-subtitle">Autonomous Billboard Revenue Intelligence</div>
         </div>
       </div>
 

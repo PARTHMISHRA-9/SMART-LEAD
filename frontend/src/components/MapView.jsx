@@ -60,7 +60,7 @@ export default function MapView({ vacancies, onSelectForPitch, onSelectMission }
       {/* Map Control Bar & 5 Mode Switcher */}
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '12px', marginBottom: '16px' }}>
         <div>
-          <h3 style={{ fontSize: '1.25rem', fontWeight: 800 }}>Intelligent OOH Operations Map</h3>
+          <h3 style={{ fontSize: '1.25rem', fontWeight: 800 }}>Intelligent Billboard Operations Map</h3>
           <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>
             Real-time geographical distribution across 5 operational views
           </p>

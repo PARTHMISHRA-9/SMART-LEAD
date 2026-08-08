@@ -78,7 +78,7 @@ async function runGeminiAgentFlow(query, session, apiKey, modelName) {
   const { GoogleGenerativeAI } = require('@google/generative-ai');
   const genAI = new GoogleGenerativeAI(apiKey);
 
-  const systemInstruction = `You are the Autonomous OOH Revenue Intelligence & Recovery AI Agent.
+  const systemInstruction = `You are the Autonomous Billboard Revenue Intelligence & Recovery AI Agent.
 You manage outdoor billboard hoardings, client bookings, lead scoring, and revenue recovery.
 CRITICAL RULES:
 1. NEVER invent rates, pricing, site traffic, customer names, or contract values.
@@ -265,7 +265,7 @@ function runDeterministicToolFlow(userQuery, session) {
 
     toolSteps.push(`✓ Prioritized highest-urgency site ${topVac ? topVac.site_id : 'HRD-100'}`);
 
-    answer = `🤖 **OOH Revenue Recovery AI Agent Recommendation**:\n\n` +
+    answer = `🤖 **Smart Leads Agent Recommendation**:\n\n` +
       `Our portfolio currently has **${metrics.vacancies_count_90d} upcoming vacancies** with **₹${(metrics.total_revenue_at_risk / 100000).toFixed(1)}L** in revenue risk.\n\n` +
       `🎯 **Recommended Attack Priority**:\n` +
       `Focus sales efforts on **${topVac.site_id} (${topVac.location_name})** first.\n` +

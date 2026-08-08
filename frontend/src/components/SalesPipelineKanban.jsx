@@ -67,7 +67,7 @@ export default function SalesPipelineKanban({ onSelectForPitch }) {
       {/* Header */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
         <div>
-          <h3 style={{ fontSize: '1.25rem', fontWeight: 800 }}>OOH Sales Recovery Kanban Pipeline</h3>
+          <h3 style={{ fontSize: '1.25rem', fontWeight: 800 }}>Billboard Sales Recovery Kanban Pipeline</h3>
           <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>
             Track active revenue recovery leads across deal stages
           </p>

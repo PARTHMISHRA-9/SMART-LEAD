@@ -189,7 +189,7 @@ export default function AIAgentChatDrawer({ isOpen, onClose, onSelectMission, on
             </div>
 
             <div style={{ fontSize: '0.76rem', color: '#9BC53D', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: '10px' }}>
-              Autonomous OOH Revenue Intelligence Assistant
+              Autonomous Billboard Revenue Intelligence Assistant
             </div>
 
             <p style={{ fontSize: '0.86rem', color: '#D8D5CA', lineHeight: '1.55', margin: '0 0 14px 0' }}>

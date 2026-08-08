@@ -1,6 +1,6 @@
 // backend/server.js
 /**
- * Autonomous OOH Revenue Intelligence Platform - Express REST API Server
+ * Autonomous Billboard Revenue Intelligence Platform - Express REST API Server
  * ------------------------------------------------------------------------
  * EXPLAINABLE ARCHITECTURE & FULL API SUITE:
  * Mounts all engines: Vacancies, Lead Scoring, Revenue Risk Engine, Next Best Action Engine,
@@ -71,7 +71,7 @@ try {
 app.get('/api/health', (req, res) => {
   res.json({
     status: 'ONLINE',
-    system: 'Autonomous OOH Revenue Intelligence Platform',
+    system: 'Autonomous Billboard Revenue Intelligence Platform',
     reference_date: currentReferenceDate,
     timestamp: new Date().toISOString()
   });
@@ -607,5 +607,5 @@ app.get('/api/export/:dataset', (req, res) => {
 
 // Start Server
 app.listen(PORT, () => {
-  console.log(`Autonomous OOH Revenue Intelligence Platform running on http://localhost:${PORT}`);
+  console.log(`Autonomous Billboard Revenue Intelligence Platform running on http://localhost:${PORT}`);
 });

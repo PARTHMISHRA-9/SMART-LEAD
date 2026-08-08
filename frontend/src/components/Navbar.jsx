@@ -68,7 +68,7 @@ export default function Navbar({
                 Smart Leads Agent
               </h1>
               <span className="badge badge-purple" style={{ fontSize: '0.65rem' }}>
-                AUTONOMOUS OOH REVENUE INTELLIGENCE
+                AUTONOMOUS BILLBOARD REVENUE INTELLIGENCE
               </span>
             </div>
             <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginTop: '2px' }}>
