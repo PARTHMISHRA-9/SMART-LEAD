@@ -80,15 +80,31 @@ app.get('/api/health', (req, res) => {
 // 2. AI Agent Chat Assistant Endpoint
 app.post('/api/agent/chat', async (req, res) => {
   try {
-    const { query, context } = req.body;
-    const aiResponse = await askAIAgent(query, { referenceDate: currentReferenceDate, ...context });
+    const userQuery = req.body.message || req.body.query || '';
+    const conversationId = req.body.conversationId || 'default_session';
+    const context = req.body.context || {};
+
+    const aiResponse = await askAIAgent(userQuery, {
+      referenceDate: currentReferenceDate,
+      conversationId: conversationId,
+      ...context
+    });
     
-    logAgentActivity('AI_AGENT_CHAT', `AI Agent processed query: "${query}"`, { query });
+    logAgentActivity('AI_AGENT_CHAT', `AI Agent executed tools for query: "${userQuery}"`, { query: userQuery, toolsUsed: aiResponse.toolsUsed });
 
     res.json({
       status: 'SUCCESS',
-      query: query,
-      ...aiResponse
+      query: userQuery,
+      answer: aiResponse.response_text,
+      agent_thought: aiResponse.agent_thought,
+      intent: aiResponse.intent,
+      confidence: aiResponse.confidence,
+      toolsUsed: aiResponse.toolsUsed,
+      decision_trace: aiResponse.decision_trace,
+      toolSteps: aiResponse.decision_trace,
+      entities: aiResponse.entities,
+      actions: aiResponse.actions,
+      suggested_actions: aiResponse.suggested_actions
     });
   } catch (error) {
     res.status(500).json({ error: error.message });
