@@ -1,5 +1,4 @@
 services:
-
   # 1. Express Node.js Backend
   - type: web
     name: hoarding-leads-backend
@@ -21,11 +20,10 @@ services:
     buildCommand: pip install -r requirements.txt
     startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
 
-  # 3. React Frontend
+  # 3. React Frontend Static Site (Static sites are free by default on Render, no plan field required)
   - type: web
     name: hoarding-leads-frontend
     env: static
-    plan: free
     rootDir: frontend
     buildCommand: npm install && npm run build
     staticPublishPath: dist
