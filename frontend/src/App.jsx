@@ -78,11 +78,12 @@ export default function App() {
   const fetchData = async () => {
     setLoading(true);
     try {
-      const resMetrics = await fetch(`/api/metrics`);
+      const API_BASE = import.meta.env.VITE_API_URL || import.meta.env.VITE_API_BASE_URL || '';
+      const resMetrics = await fetch(`${API_BASE}/api/metrics`);
       const dataMetrics = await resMetrics.json();
       setMetrics(dataMetrics);
 
-      const resVacancies = await fetch(`/api/vacancies?strategy=${strategyMode}`);
+      const resVacancies = await fetch(`${API_BASE}/api/vacancies?strategy=${strategyMode}`);
       const dataVacancies = await resVacancies.json();
       setVacancies(dataVacancies.vacancies || []);
     } catch (err) {
