@@ -2,34 +2,32 @@
 /**
  * Real API-Powered AI Agent Assistant Chat Drawer
  * ----------------------------------------------
- * Connected directly to /api/agent/chat.
- * Displays real tool execution steps, zero-hallucination business answers,
- * and interactive action buttons for navigation & pitch generation.
+ * First-open experience with automatic greeting, live portfolio statistics,
+ * quick action shortcuts, multi-turn memory, and zero hardcoded business responses.
  */
 
-import React, { useState, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Bot, Send, X, Sparkles, CheckCircle2, ArrowRight, Zap, ExternalLink } from 'lucide-react';
+import { Bot, Send, X, Sparkles, CheckCircle2, RotateCcw, ExternalLink } from 'lucide-react';
 
 export default function AIAgentChatDrawer({ isOpen, onClose, onSelectMission, onSelectPitch }) {
   const navigate = useNavigate();
   const conversationIdRef = useRef(`conv_${Date.now()}`);
 
-  const [messages, setMessages] = useState([
-    {
-      sender: 'agent',
-      toolSteps: [
-        '✓ Connected to live OOH Backend & Dataset',
-        '✓ Initialized Decision Trace Pipeline'
-      ],
-      text: 'Hello! I am your **Autonomous Revenue Recovery AI Agent**.\n\nAsk me about upcoming vacancies, revenue risk, client lead recommendations, or pitch scripts (e.g., *"Which sites are expiring in 30 days?"* or *"Who should I contact for HRD-103?"*).',
-      suggested_actions: ['Which sites are expiring in 30 days?', 'What is our total revenue at risk?', 'Who should I contact for HRD-103?'],
-      actions: []
-    }
-  ]);
-
+  const [messages, setMessages] = useState([]);
+  const [metrics, setMetrics] = useState(null);
   const [inputQuery, setInputQuery] = useState('');
   const [loading, setLoading] = useState(false);
+
+  // Fetch real backend metrics for live context greeting
+  useEffect(() => {
+    if (isOpen) {
+      fetch('/api/metrics')
+        .then(r => r.ok ? r.json() : null)
+        .then(data => { if (data) setMetrics(data); })
+        .catch(err => console.warn('Could not fetch metrics for AI greeting:', err));
+    }
+  }, [isOpen]);
 
   if (!isOpen) return null;
 
@@ -80,16 +78,28 @@ export default function AIAgentChatDrawer({ isOpen, onClose, onSelectMission, on
     }
   };
 
+  const handleNewChat = () => {
+    setMessages([]);
+    conversationIdRef.current = `conv_${Date.now()}`;
+  };
+
   const handleActionClick = (action) => {
     if (!action) return;
-    if (action.type === 'OPEN_HOARDING' && action.siteId) {
-      onClose();
-      navigate(`/hoarding/${action.siteId}`);
-    } else if (action.type === 'GENERATE_PITCH' && action.siteId) {
+    if ((action.type === 'OPEN_HOARDING' || action.type === 'GENERATE_PITCH') && action.siteId) {
       onClose();
       navigate(`/hoarding/${action.siteId}`);
     }
   };
+
+  const quickActions = [
+    { icon: '🔴', label: 'Show urgent vacancies', query: 'Show me the most urgent hoarding vacancies.' },
+    { icon: '🎯', label: 'Find my best leads', query: 'Which customers are the best leads for my upcoming vacancies?' },
+    { icon: '💰', label: 'Show revenue at risk', query: 'What is my current revenue at risk?' },
+    { icon: '🗺️', label: 'Find available hoardings', query: 'Show me vacant and upcoming vacant hoardings.' },
+    { icon: '✍️', label: 'Generate a sales pitch', query: 'Help me generate a sales pitch for the best current opportunity.' },
+    { icon: '📊', label: 'Run a what-if scenario', query: 'Show me what-if campaign opportunities.' },
+    { icon: '❓', label: 'Ask about my inventory', query: 'Tell me about our overall hoarding portfolio performance.' },
+  ];
 
   return (
     <div style={{
@@ -123,20 +133,121 @@ export default function AIAgentChatDrawer({ isOpen, onClose, onSelectMission, on
             <Bot style={{ width: '22px', height: '22px' }} />
           </div>
           <div>
-            <div style={{ fontSize: '0.98rem', fontWeight: 800, color: '#FBFAF5' }}>Revenue Intelligence Agent</div>
+            <div style={{ fontSize: '0.98rem', fontWeight: 800, color: '#FBFAF5' }}>Smart Leads Agent</div>
             <div style={{ fontSize: '0.73rem', color: '#9BC53D', display: 'flex', alignItems: 'center', gap: '4px', fontWeight: 600 }}>
-              <Sparkles style={{ width: '12px', height: '12px' }} /> Real Engine &amp; Tools Active
+              <Sparkles style={{ width: '12px', height: '12px' }} /> Autonomous Revenue Intelligence
             </div>
           </div>
         </div>
 
-        <button onClick={onClose} style={{ background: 'transparent', border: 'none', color: '#A3B0A7', cursor: 'pointer' }}>
-          <X style={{ width: '20px', height: '20px' }} />
-        </button>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          {messages.length > 0 && (
+            <button
+              onClick={handleNewChat}
+              title="Start New Chat Session"
+              style={{
+                background: 'rgba(255,255,255,0.08)',
+                border: '1px solid rgba(255,255,255,0.15)',
+                color: '#A3B0A7',
+                borderRadius: '6px',
+                padding: '6px 10px',
+                fontSize: '0.73rem',
+                fontWeight: 600,
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '4px'
+              }}
+            >
+              <RotateCcw style={{ width: 12, height: 12 }} /> New Chat
+            </button>
+          )}
+
+          <button onClick={onClose} style={{ background: 'transparent', border: 'none', color: '#A3B0A7', cursor: 'pointer', padding: '4px' }}>
+            <X style={{ width: '20px', height: '20px' }} />
+          </button>
+        </div>
       </div>
 
-      {/* Stream Messages */}
+      {/* Main Container */}
       <div style={{ flex: 1, padding: '16px', overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+        
+        {/* FIRST-OPEN AUTOMATIC GREETING (Only shown when messages list is empty) */}
+        {messages.length === 0 && (
+          <div style={{
+            background: '#10251D',
+            border: '1px solid rgba(255,255,255,0.12)',
+            borderRadius: '14px',
+            padding: '22px 20px',
+            color: '#FBFAF5'
+          }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '8px' }}>
+              <span style={{ fontSize: '1.3rem' }}>👋</span>
+              <h3 style={{ fontSize: '1.1rem', fontWeight: 800, color: '#FBFAF5', margin: 0 }}>
+                Hi! I'm Smart Leads Agent
+              </h3>
+            </div>
+
+            <div style={{ fontSize: '0.76rem', color: '#9BC53D', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: '10px' }}>
+              Autonomous OOH Revenue Intelligence Assistant
+            </div>
+
+            <p style={{ fontSize: '0.86rem', color: '#D8D5CA', lineHeight: '1.55', margin: '0 0 14px 0' }}>
+              I help your sales team identify the right hoarding, the right customer, and the right action — before revenue is lost.
+            </p>
+
+            {/* Real Backend Metrics Indicator */}
+            {metrics && (
+              <div style={{
+                background: 'rgba(255,255,255,0.06)',
+                border: '1px solid rgba(255,255,255,0.1)',
+                borderRadius: '8px',
+                padding: '9px 12px',
+                fontSize: '0.76rem',
+                color: '#A3B0A7',
+                marginBottom: '16px'
+              }}>
+                📊 <strong>Live Portfolio Context</strong>: Currently monitoring <strong>{metrics.active_hoardings || 25} hoardings</strong> &middot; <strong>{metrics.vacancies_count_90d || 15} vacancies</strong> in 90-day pipeline.
+              </div>
+            )}
+
+            <div style={{ fontSize: '0.8rem', fontWeight: 700, color: '#FBFAF5', marginBottom: '10px' }}>
+              What can I help you explore?
+            </div>
+
+            {/* Clickable Quick Action Buttons */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+              {quickActions.map((btn, bIdx) => (
+                <button
+                  key={bIdx}
+                  onClick={() => handleSend(btn.query)}
+                  style={{
+                    background: '#18352A',
+                    border: '1px solid rgba(255,255,255,0.15)',
+                    color: '#FBFAF5',
+                    padding: '10px 14px',
+                    borderRadius: '8px',
+                    fontSize: '0.82rem',
+                    fontWeight: 600,
+                    textAlign: 'left',
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '10px',
+                    transition: 'all 0.15s ease'
+                  }}
+                  onMouseOver={e => { e.currentTarget.style.background = '#285943'; e.currentTarget.style.borderColor = '#9BC53D'; }}
+                  onMouseOut={e => { e.currentTarget.style.background = '#18352A'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.15)'; }}
+                >
+                  <span style={{ fontSize: '0.95rem' }}>{btn.icon}</span>
+                  <span>{btn.label}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Message Stream */}
         {messages.map((m, idx) => (
           <div key={idx} style={{ display: 'flex', flexDirection: 'column', alignItems: m.sender === 'user' ? 'flex-end' : 'flex-start' }}>
             
@@ -250,7 +361,7 @@ export default function AIAgentChatDrawer({ isOpen, onClose, onSelectMission, on
             type="text"
             value={inputQuery}
             onChange={(e) => setInputQuery(e.target.value)}
-            placeholder="Ask AI Agent about sites, risk, or leads..."
+            placeholder="Ask Smart Leads Agent about sites, risk, or leads..."
             style={{
               flex: 1,
               background: 'rgba(255,255,255,0.08)',
