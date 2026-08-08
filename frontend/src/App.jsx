@@ -77,15 +77,29 @@ export default function App() {
 
   const fetchData = async () => {
     setLoading(true);
-    try {
-      const API_BASE = import.meta.env.VITE_API_URL || import.meta.env.VITE_API_BASE_URL || '';
-      const resMetrics = await fetch(`${API_BASE}/api/metrics`);
-      const dataMetrics = await resMetrics.json();
-      setMetrics(dataMetrics);
+    const API_BASE = import.meta.env.VITE_API_URL || import.meta.env.VITE_API_BASE_URL || '';
 
-      const resVacancies = await fetch(`${API_BASE}/api/vacancies?strategy=${strategyMode}`);
-      const dataVacancies = await resVacancies.json();
-      setVacancies(dataVacancies.vacancies || []);
+    const fetchWithRetry = async (url, retries = 3, delay = 2000) => {
+      for (let i = 0; i < retries; i++) {
+        try {
+          const controller = new AbortController();
+          const timeoutId = setTimeout(() => controller.abort(), 45000);
+          const res = await fetch(url, { signal: controller.signal });
+          clearTimeout(timeoutId);
+          if (res.ok) return await res.json();
+        } catch (e) {
+          if (i === retries - 1) throw e;
+          await new Promise(r => setTimeout(r, delay * (i + 1)));
+        }
+      }
+    };
+
+    try {
+      const dataMetrics = await fetchWithRetry(`${API_BASE}/api/metrics`);
+      if (dataMetrics) setMetrics(dataMetrics);
+
+      const dataVacancies = await fetchWithRetry(`${API_BASE}/api/vacancies?strategy=${strategyMode}`);
+      if (dataVacancies) setVacancies(dataVacancies.vacancies || []);
     } catch (err) {
       console.error('Error fetching API data:', err);
     } finally {
